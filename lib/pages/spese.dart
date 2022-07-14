@@ -21,6 +21,10 @@ class _AdminSpese extends State<AdminSpese> {
   List<String> nomeutente = [];
   String dropdownvalue = '';
 
+  String interno = '';
+  String piano = '';
+  String scala = '';
+
   @override
   initState() {
     super.initState();
@@ -30,7 +34,7 @@ class _AdminSpese extends State<AdminSpese> {
               for (int i = 0; i < utenti.length; i++)
                 {
                   nomeutente.add(utenti[i].nome_cognome!),
-                  print(nomeutente),
+                  //print(nomeutente),
                 },
               for (int i = 0; i < utenti.length; i++)
                 {
@@ -40,7 +44,7 @@ class _AdminSpese extends State<AdminSpese> {
 
               setState(() {
                 dropdownvalue = nomeutente[0];
-              })
+              }),
             });
   }
 
@@ -76,49 +80,103 @@ class _AdminSpese extends State<AdminSpese> {
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-                color: Color(4281282353),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: DropdownButton<String>(
-              value: dropdownvalue,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              elevation: 16,
-              underline: SizedBox(),
-              style: const TextStyle(color: Colors.grey),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownvalue = newValue!;
-                });
-              },
-              selectedItemBuilder: (BuildContext context) {
-                return nomeutente.map<Widget>((String item) {
-                  return Container(
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      width: 350,
-                      height: 80,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(item),
-                            ],
-                          ),
-                        ],
-                      ));
-                }).toList();
-              },
-              items: nomeutente.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: DropdownButton<String>(
+                dropdownColor: Colors.grey[800],
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(Icons.keyboard_arrow_down, color: Colors.grey[200]),
+                ),
+                value: dropdownvalue,
+                style: TextStyle(color: Colors.grey[200]),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownvalue = newValue!;
+                    int j = nomeutente.indexOf(dropdownvalue);
+                    interno = utenti[j].interno!;
+                    piano = utenti[j].piano!;
+                    scala = utenti[j].scala!;
+                  });
+                },
+                selectedItemBuilder: (BuildContext context) {
+                  return nomeutente.map<Widget>((String item) {
+                    return Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        width: 350,
+                        height: 80,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(item),
+                              ],
+                            ),
+                          ],
+                        ));
+                  }).toList();
+                },
+                items: nomeutente.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value, style: TextStyle(color: Colors.grey[200])),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 50.0),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('Nome e cognome: ',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(dropdownvalue,
+                        style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('Interno: ',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(interno,
+                        style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('Piano: ',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(piano,
+                        style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('Scala: ',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(scala,
+                        style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
