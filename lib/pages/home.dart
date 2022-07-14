@@ -1,3 +1,4 @@
+import 'package:condomini_admin/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -42,10 +43,10 @@ class _AdminHome extends State<AdminHome> {
             Text('Gestione condominiale',
                 style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white)),
             Text('Resoconto',
-                style: TextStyle(fontSize: 15, color: Colors.green)),
+                style: TextStyle(fontSize: 15, color: verde)),
           ],
         ),
-        backgroundColor: Colors.grey[900],
+        backgroundColor: bar,
         elevation: 0,
       ),
       body: Column(
@@ -79,10 +80,10 @@ class _AdminHome extends State<AdminHome> {
                 Row(
                   //mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Icon(Icons.monetization_on_outlined, color: Colors.green,
+                    Icon(Icons.monetization_on_outlined, color: verde,
                         size: 35),
                     Text(' Spese attuali', style: TextStyle(fontSize: 30,
-                        color: Colors.green,
+                        color: verde,
                         fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -177,7 +178,7 @@ class _AdminHome extends State<AdminHome> {
                     Text('TOTALE SPESE CONSUNTIVO = ', style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green)),
+                        color: verde)),
                     Text('tot_spese€', style: TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold)),
                   ],

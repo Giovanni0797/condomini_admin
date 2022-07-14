@@ -1,3 +1,4 @@
+import 'package:condomini_admin/globals.dart';
 import 'package:condomini_admin/pages/home.dart';
 import 'package:condomini_admin/pages/spese.dart';
 import 'package:condomini_admin/pages/users.dart';
@@ -43,11 +44,11 @@ class _HomePageState extends State<HomePage> {
         controller: _pageController,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey[900],
+        backgroundColor: bar,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         unselectedItemColor: Colors.white70,
-        selectedItemColor: Colors.green,
+        selectedItemColor: verde,
         currentIndex: _selectedIndex,
         onTap: _navigateBottomNavBar,
         type: BottomNavigationBarType.fixed,

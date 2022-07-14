@@ -1,3 +1,4 @@
+import 'package:condomini_admin/util/alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -22,17 +23,21 @@ class _AdminUsers extends State<AdminUsers> {
   List<String> nomeutente = [];
   String dropdownvalue = '';
 
-  String interno = '';
-  String piano = '';
-  String scala = '';
+  String interno = 'Seleziona utente';
+  String piano = 'Seleziona utente';
+  String scala = 'Seleziona utente';
   double millesimali = 0.0;
   int id = 0;
 
+
   TextEditingController controller = TextEditingController();
+
+  bool tappedYes = false;
 
   @override
   initState() {
     super.initState();
+
     recUtente('https://www.mavreality.it/condomini/api_amministratore/utenti_read_all.php')
         .then((value) => {
       utenti = value,
@@ -62,18 +67,17 @@ class _AdminUsers extends State<AdminUsers> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('Gestione condominiale',
-                style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white)),
+                style: TextStyle(fontWeight: FontWeight.w700, color: bianco)),
             Text('Gestisci utenti',
-                style: TextStyle(fontSize: 15, color: Colors.green)),
+                style: TextStyle(fontSize: 15, color: verde)),
           ],
         ),
-        backgroundColor: Colors.grey[900],
+        backgroundColor: bar,
         elevation: 0,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Benvenuto
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -84,19 +88,22 @@ class _AdminUsers extends State<AdminUsers> {
               ],
             ),
           ),
+          //SELEZIONA UTENTE
           Center(
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.grey[800],
+                  color: def2,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: DropdownButton<String>(
-                dropdownColor: Colors.grey[800],
                 icon: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.keyboard_arrow_down, color: Colors.grey[200]),
+                  child: Icon(Icons.keyboard_arrow_down, color: bianco),
                 ),
+                dropdownColor: def2,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                style: TextStyle(fontSize: 16),
+                underline: SizedBox(),
                 value: dropdownvalue,
-                style: TextStyle(color: Colors.grey[200]),
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownvalue = newValue!;
@@ -112,7 +119,7 @@ class _AdminUsers extends State<AdminUsers> {
                 selectedItemBuilder: (BuildContext context) {
                   return nomeutente.map<Widget>((String item) {
                     return Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
                         width: 350,
                         height: 80,
                         child: Column(
@@ -134,7 +141,7 @@ class _AdminUsers extends State<AdminUsers> {
                 items: nomeutente.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value, style: TextStyle(color: Colors.grey[200])),
+                    child: Text(value, style: TextStyle(color: Color(0xFFd2d3d3))),
                   );
                 }).toList(),
               ),
@@ -149,9 +156,9 @@ class _AdminUsers extends State<AdminUsers> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Nome e cognome: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Text(dropdownvalue,
-                        style: TextStyle(fontSize: 18)),
+                        style: TextStyle(fontSize: 16, color: Color(0xFFd2d3d3))),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -160,9 +167,9 @@ class _AdminUsers extends State<AdminUsers> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Interno: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Text(interno,
-                        style: TextStyle(fontSize: 18)),
+                        style: TextStyle(fontSize: 16, color: Color(0xFFd2d3d3))),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -171,9 +178,9 @@ class _AdminUsers extends State<AdminUsers> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Piano: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Text(piano,
-                        style: TextStyle(fontSize: 18)),
+                        style: TextStyle(fontSize: 16, color: Color(0xFFd2d3d3))),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -182,42 +189,41 @@ class _AdminUsers extends State<AdminUsers> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Scala: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Text(scala,
-                        style: TextStyle(fontSize: 18)),
+                        style: TextStyle(fontSize: 16, color: Color(0xFFd2d3d3))),
                   ],
                 ),
                 //MILLESIMALI
                 Row(
                   children: [
                     Text('Millesimali: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    SizedBox(
-                      width: 150,
-                      height: 38,
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    Expanded(
                       child: TextField(
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                        decoration: InputDecoration(
+                        style: TextStyle(fontSize: 16, color: Color(0xFFd2d3d3)),
+                        decoration: InputDecoration.collapsed(
                           filled: true,
-                          fillColor: Colors.black,
-                          hintText: 'Inserisci',
-                          hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
+                          fillColor: Colors.transparent,
+                          border: InputBorder.none,
+                          hintText: "Inserisci",
+                          hintStyle: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: ElevatedButton(child: Text('Invia'),
+                      child: TextButton(child: Text('Modifica', style: TextStyle(color: verde)),
                         onPressed: () {
                           if (controller.text.isNotEmpty){
                             millesimali = double.parse(controller.text);
-                            update_millesimali(link_admin + 'utenti_update.php?id='+id.toString()+'&millesimali='+millesimali.toString(), context);
+                            upMillesimali(link_admin + 'utenti_update.php?id='+id.toString()+'&millesimali='+millesimali.toString(), context);
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(
-                                content: Text("Millesimali vuoti", style: TextStyle(fontSize: 16),)
+                                content: Text("Millesimali vuoti", style: TextStyle(fontSize: 18),)
                             ));
                           }
                         },
@@ -226,6 +232,36 @@ class _AdminUsers extends State<AdminUsers> {
                   ],
                 ),
               ],
+            ),
+          ),
+          //CANCELLA UTENTE
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  final action = await AlertDialogs.yesCancelDialog(context, 'Eliminare utente "' + dropdownvalue + '"', 'Sei sicuro?');
+                  if(action == DialogsAction.yes) {
+                    setState(() {
+                      tappedYes = true;
+                      //cancUtente(link_admin + 'utenti_delete.php?id='+id.toString(), context);
+                    });
+                  } else {
+                    setState(() => tappedYes = false);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: def2,
+                  textStyle: TextStyle(fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // <-- Radius
+                  ),
+                ),
+                child: Text(
+                  'Elimina utente'.toUpperCase(),
+                  style: TextStyle(color: bianco, fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ),
             ),
           ),
         ],
@@ -252,7 +288,16 @@ Future<List<Utente>> recUtente(String link) async {
   }
 }
 
-Future<void> update_millesimali(String link, BuildContext context) async {
+Future<void> upMillesimali(String link, BuildContext context) async {
+  final response = await http.get(Uri.parse(link));
+  if (response.statusCode == 200) {
+    print('Update millesimali OK');
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+Future<void> cancUtente(String link, BuildContext context) async {
   final response = await http.get(Uri.parse(link));
   if (response.statusCode == 200) {
     print('Update millesimali OK');

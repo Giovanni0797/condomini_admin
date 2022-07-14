@@ -60,16 +60,15 @@ class _AdminSpese extends State<AdminSpese> {
                 style: TextStyle(
                     fontWeight: FontWeight.w700, color: Colors.white)),
             Text('Gestisci spese',
-                style: TextStyle(fontSize: 15, color: Colors.green)),
+                style: TextStyle(fontSize: 15, color: verde)),
           ],
         ),
-        backgroundColor: Colors.grey[900],
+        backgroundColor: bar,
         elevation: 0,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Benvenuto
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -80,19 +79,22 @@ class _AdminSpese extends State<AdminSpese> {
               ],
             ),
           ),
+          //SELEZIONA UTENTE
           Center(
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.grey[800],
+                  color: def2,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: DropdownButton<String>(
-                dropdownColor: Colors.grey[800],
                 icon: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.keyboard_arrow_down, color: Colors.grey[200]),
+                  child: Icon(Icons.keyboard_arrow_down, color: bianco),
                 ),
+                dropdownColor: def2,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                style: TextStyle(fontSize: 16),
+                underline: SizedBox(),
                 value: dropdownvalue,
-                style: TextStyle(color: Colors.grey[200]),
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownvalue = newValue!;
@@ -105,7 +107,7 @@ class _AdminSpese extends State<AdminSpese> {
                 selectedItemBuilder: (BuildContext context) {
                   return nomeutente.map<Widget>((String item) {
                     return Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
                         width: 350,
                         height: 80,
                         child: Column(
@@ -127,58 +129,54 @@ class _AdminSpese extends State<AdminSpese> {
                 items: nomeutente.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value, style: TextStyle(color: Colors.grey[200])),
+                    child: Text(value, style: TextStyle(color: Color(0xFFd2d3d3))),
                   );
                 }).toList(),
               ),
             ),
           ),
+          //BOTTONI AZIONI
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 50.0),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('Nome e cognome: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    Text(dropdownvalue,
-                        style: TextStyle(fontSize: 18)),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('Interno: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    Text(interno,
-                        style: TextStyle(fontSize: 18)),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('Piano: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    Text(piano,
-                        style: TextStyle(fontSize: 18)),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('Scala: ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    Text(scala,
-                        style: TextStyle(fontSize: 18)),
-                  ],
-                ),
-              ],
-            ),
+            padding: const EdgeInsets.only(left: 16.0, top: 50),
+            child: Text('Seleziona un\'azione da eseguire: ',
+                style: TextStyle(fontSize: 18)),
           ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, top: 4),
+                child: SizedBox(
+                  width: 135,
+                  child: OutlinedButton(child: Text('Aggiungi riparto', style: TextStyle(color: verde)),
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        width: 1.0,
+                        color: verde,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, top: 4),
+                child: SizedBox(
+                  width: 135,
+                  child: OutlinedButton(child: Text('Aggiungi spese', style: TextStyle(color: verde),),
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        width: 1.0,
+                        color: verde,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
