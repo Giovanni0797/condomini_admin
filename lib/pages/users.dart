@@ -28,9 +28,10 @@ class _AdminUsers extends State<AdminUsers> {
   String scala = 'Seleziona utente';
   double millesimali = 0.0;
   int id = 0;
+  int j = 0;
 
 
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController()..text='';
 
   bool tappedYes = false;
 
@@ -100,20 +101,20 @@ class _AdminUsers extends State<AdminUsers> {
                   child: Icon(Icons.keyboard_arrow_down, color: bianco),
                 ),
                 dropdownColor: def2,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                //borderRadius: BorderRadius.all(Radius.circular(20)),
                 style: TextStyle(fontSize: 16),
                 underline: SizedBox(),
                 value: dropdownvalue,
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownvalue = newValue!;
-                    int j = nomeutente.indexOf(dropdownvalue);
+                    j = nomeutente.indexOf(dropdownvalue);
                     interno = utenti[j].interno!;
                     piano = utenti[j].piano!;
                     scala = utenti[j].scala!;
                     millesimali = utenti[j].millesimali!;
                     id = utenti[j].id!;
-                    controller = TextEditingController()..text=millesimali.toString();
+                    controller.text=millesimali.toString();
                   });
                 },
                 selectedItemBuilder: (BuildContext context) {
@@ -141,7 +142,22 @@ class _AdminUsers extends State<AdminUsers> {
                 items: nomeutente.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value, style: TextStyle(color: Color(0xFFd2d3d3))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2.0, bottom: 10),
+                          child: Text(value, style: TextStyle(color: Color(0xFFd2d3d3))),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 1.0, color: bianco),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }).toList(),
               ),
@@ -219,7 +235,11 @@ class _AdminUsers extends State<AdminUsers> {
                         onPressed: () {
                           if (controller.text.isNotEmpty){
                             millesimali = double.parse(controller.text);
-                            upMillesimali(link_admin + 'utenti_update.php?id='+id.toString()+'&millesimali='+millesimali.toString(), context);
+                            print(millesimali);
+                            upMillesimali(link + 'utenti_update.php?id='+id.toString()+'&millesimali='+millesimali.toString(), context);
+                            setState(() {
+                              utenti[j].millesimali = double.parse(controller.text);
+                            });
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(
@@ -244,7 +264,8 @@ class _AdminUsers extends State<AdminUsers> {
                   if(action == DialogsAction.yes) {
                     setState(() {
                       tappedYes = true;
-                      //cancUtente(link_admin + 'utenti_delete.php?id='+id.toString(), context);
+                      cancUtente(link + 'utenti_delete.php?id='+id.toString(), context);
+                      dropdownvalue = nomeutente[0];
                     });
                   } else {
                     setState(() => tappedYes = false);
@@ -300,7 +321,7 @@ Future<void> upMillesimali(String link, BuildContext context) async {
 Future<void> cancUtente(String link, BuildContext context) async {
   final response = await http.get(Uri.parse(link));
   if (response.statusCode == 200) {
-    print('Update millesimali OK');
+    print('Utente eliminato OK');
   } else {
     throw Exception('Failed to load data');
   }

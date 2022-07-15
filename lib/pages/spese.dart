@@ -1,3 +1,4 @@
+import 'package:condomini_admin/util/add_riparto.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -17,13 +18,13 @@ class AdminSpese extends StatefulWidget {
 
 class _AdminSpese extends State<AdminSpese> {
   List<Utente> utenti = [];
-  List<int> idutente = [];
   List<String> nomeutente = [];
   String dropdownvalue = '';
 
   String interno = '';
   String piano = '';
   String scala = '';
+  int id = 0;
 
   @override
   initState() {
@@ -35,11 +36,6 @@ class _AdminSpese extends State<AdminSpese> {
                 {
                   nomeutente.add(utenti[i].nome_cognome!),
                   //print(nomeutente),
-                },
-              for (int i = 0; i < utenti.length; i++)
-                {
-                  idutente.add(utenti[i].id!),
-                  //print(idutente),
                 },
 
               setState(() {
@@ -91,7 +87,7 @@ class _AdminSpese extends State<AdminSpese> {
                   child: Icon(Icons.keyboard_arrow_down, color: bianco),
                 ),
                 dropdownColor: def2,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                //borderRadius: BorderRadius.all(Radius.circular(20)),
                 style: TextStyle(fontSize: 16),
                 underline: SizedBox(),
                 value: dropdownvalue,
@@ -102,6 +98,7 @@ class _AdminSpese extends State<AdminSpese> {
                     interno = utenti[j].interno!;
                     piano = utenti[j].piano!;
                     scala = utenti[j].scala!;
+                    id = utenti[j].id!;
                   });
                 },
                 selectedItemBuilder: (BuildContext context) {
@@ -148,7 +145,9 @@ class _AdminSpese extends State<AdminSpese> {
                 child: SizedBox(
                   width: 135,
                   child: OutlinedButton(child: Text('Aggiungi riparto', style: TextStyle(color: verde)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddRiparto(id: id, nome_utente: dropdownvalue, utenti: utenti)));
+                    },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
                         width: 1.0,
