@@ -95,8 +95,16 @@ class _AddRiparto extends State<AddRiparto> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Utente selezionato: ' + widget.nome_utente,
-                    style: TextStyle(fontSize: 20)),
+                Row(
+                  children: [
+                    Text('Utente selezionato: ',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                    ),
+                    Text(widget.nome_utente,
+                        style: TextStyle(fontSize: 18)
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -198,17 +206,17 @@ class _AddRiparto extends State<AddRiparto> {
             ),
           ),
 
-          //TAB
+          SizedBox(height: 10),
+          //SELEZIONA TAB
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 4.0),
+            padding: const EdgeInsets.only(left: 16.0, top: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Text('Tab: ',
+                    Text('Seleziona tab: ',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-
                   ],
                 ),
               ],
@@ -262,18 +270,52 @@ class _AddRiparto extends State<AddRiparto> {
                 items: lista_tab.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value, style: TextStyle(color: Color(0xFFd2d3d3))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2.0, bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(value, style: TextStyle(color: Color(0xFFd2d3d3))),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 1.0, color: bianco),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }).toList(),
               ),
             ),
           ),
 
-          SizedBox(height: 20),
-          //IMPORTO
+          SizedBox(height: 10),
+          //INSERISCI IMPORTO
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text('Inserisci importo: ',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ],
+            ),
+          ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(left: 16.0, top: 5.0, right: 16.0),
               child: Expanded(
                   child: TextField(
                     controller: controller,
@@ -285,9 +327,10 @@ class _AddRiparto extends State<AddRiparto> {
                       ),
                       filled: true,
                       fillColor: def2,
-                      hintText: 'Inserisci',
+                      hintText: 'Inserisci...',
                       hintStyle: TextStyle(color: bianco),
                       labelText: 'Importo',
+                      labelStyle: TextStyle(color: bianco),
                       suffixIcon: controller.text.isEmpty
                           ? Container(width: 0)
                           : IconButton(

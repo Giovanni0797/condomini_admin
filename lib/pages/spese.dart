@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:condomini_admin/data_layer/Utente.dart';
 import 'package:condomini_admin/globals.dart';
 
+import '../util/rem_spesa.dart';
+
 class AdminSpese extends StatefulWidget {
   AdminSpese({Key? key}) : super(key: key);
 
@@ -147,45 +149,81 @@ class _AdminSpese extends State<AdminSpese> {
             child: Text('Seleziona un\'azione da eseguire: ',
                 style: TextStyle(fontSize: 18)),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 4),
-                child: SizedBox(
-                  width: 135,
-                  child: OutlinedButton(child: Text('Aggiungi riparto', style: TextStyle(color: verde)),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddRiparto(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        width: 1.0,
-                        color: verde,
-                        style: BorderStyle.solid,
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 4, right: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SizedBox(
+                      width: 115,
+                      child: OutlinedButton(child: Text('Aggiungi riparto', style: TextStyle(color: verde, fontSize: 12)),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddRiparto(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            width: 1.0,
+                            color: verde,
+                            style: BorderStyle.solid,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // <-- Radius
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 4),
-                child: SizedBox(
-                  width: 135,
-                  child: OutlinedButton(child: Text('Aggiungi spese', style: TextStyle(color: verde),),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddSpesa(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        width: 1.0,
-                        color: verde,
-                        style: BorderStyle.solid,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SizedBox(
+                      width: 115,
+                      child: OutlinedButton(child: Text('Aggiungi spesa', style: TextStyle(color: verde, fontSize: 12)),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddSpesa(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            width: 1.0,
+                            color: verde,
+                            style: BorderStyle.solid,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // <-- Radius
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SizedBox(
+                      width: 115,
+                      child: OutlinedButton(child: Text('Rimuovi spesa', style: TextStyle(color: verde, fontSize: 12)),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RemSpesa(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            width: 1.0,
+                            color: verde,
+                            style: BorderStyle.solid,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // <-- Radius
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),

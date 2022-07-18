@@ -109,7 +109,7 @@ class _AddSpesa extends State<AddSpesa> {
                         style: TextStyle(fontSize: 18)
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -232,7 +232,7 @@ class _AddSpesa extends State<AddSpesa> {
                     ),
                     filled: true,
                     fillColor: def2,
-                    hintText: 'Inserisci',
+                    hintText: 'Inserisci...',
                     hintStyle: TextStyle(color: bianco),
                     labelText: 'Parti uguali',
                     labelStyle: TextStyle(color: bianco),
@@ -281,7 +281,7 @@ class _AddSpesa extends State<AddSpesa> {
                     ),
                     filled: true,
                     fillColor: def2,
-                    hintText: 'Inserisci',
+                    hintText: 'Inserisci...',
                     hintStyle: TextStyle(color: bianco),
                     labelText: 'Spese personali',
                     labelStyle: TextStyle(color: bianco),
