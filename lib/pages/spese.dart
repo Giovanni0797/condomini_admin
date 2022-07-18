@@ -1,10 +1,12 @@
+import 'package:condomini_admin/data_layer/Riparto.dart';
+import 'package:condomini_admin/data_layer/Spesa.dart';
 import 'package:condomini_admin/util/add_riparto.dart';
+import 'package:condomini_admin/util/add_spese.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:condomini_admin/data_layer/Utente.dart';
-import 'package:flutter/services.dart';
 import 'package:condomini_admin/globals.dart';
 
 class AdminSpese extends StatefulWidget {
@@ -19,12 +21,13 @@ class AdminSpese extends StatefulWidget {
 class _AdminSpese extends State<AdminSpese> {
   List<Utente> utenti = [];
   List<String> nomeutente = [];
+  List<int> idutente = [];
   String dropdownvalue = '';
 
   String interno = '';
   String piano = '';
   String scala = '';
-  int id = 0;
+  int id_utente = 0;
 
   @override
   initState() {
@@ -37,11 +40,17 @@ class _AdminSpese extends State<AdminSpese> {
                   nomeutente.add(utenti[i].nome_cognome!),
                   //print(nomeutente),
                 },
+                for (int i = 0; i < utenti.length; i++)
+                  {
+                    idutente.add(utenti[i].id!),
+                    //print(idutente),
+                  },
 
               setState(() {
+                id_utente = idutente[0];
                 dropdownvalue = nomeutente[0];
               }),
-            });
+    });
   }
 
   @override
@@ -98,7 +107,7 @@ class _AdminSpese extends State<AdminSpese> {
                     interno = utenti[j].interno!;
                     piano = utenti[j].piano!;
                     scala = utenti[j].scala!;
-                    id = utenti[j].id!;
+                    id_utente = utenti[j].id!;
                   });
                 },
                 selectedItemBuilder: (BuildContext context) {
@@ -146,7 +155,7 @@ class _AdminSpese extends State<AdminSpese> {
                   width: 135,
                   child: OutlinedButton(child: Text('Aggiungi riparto', style: TextStyle(color: verde)),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddRiparto(id: id, nome_utente: dropdownvalue, utenti: utenti)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddRiparto(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
@@ -163,7 +172,9 @@ class _AdminSpese extends State<AdminSpese> {
                 child: SizedBox(
                   width: 135,
                   child: OutlinedButton(child: Text('Aggiungi spese', style: TextStyle(color: verde),),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddSpesa(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
+                    },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
                         width: 1.0,

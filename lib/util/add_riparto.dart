@@ -9,10 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:condomini_admin/globals.dart';
 
 class AddRiparto extends StatefulWidget {
-  final int id;
+  final int id_utente;
   final String nome_utente;
   List<Utente> utenti;
-  AddRiparto({Key? key, required this.id, required this.nome_utente, required this.utenti}) : super(key: key);
+  AddRiparto({Key? key, required this.id_utente, required this.nome_utente, required this.utenti}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -280,12 +280,14 @@ class _AddRiparto extends State<AddRiparto> {
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: bianco),
                     decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       filled: true,
                       fillColor: def2,
                       hintText: 'Inserisci',
                       hintStyle: TextStyle(color: bianco),
                       labelText: 'Importo',
-                      border: OutlineInputBorder(),
                       suffixIcon: controller.text.isEmpty
                           ? Container(width: 0)
                           : IconButton(
@@ -309,10 +311,13 @@ class _AddRiparto extends State<AddRiparto> {
                   if(action == DialogsAction.yes) {
                     setState(() {
                       tappedYes = true;
-                      InsRiparto(link_admin + 'riparti_insert.php?id_utente='+widget.id.toString()+'&sigla='+dropdownvalue2+'&voce_contabile='+dropdownvalue+'&raggruppamento='+raggruppamento+'&importo='+controller.text.toString(), context);
-                      print(InsRiparto);
-                      dropdownvalue = 'Amministrazione condominiale';
-                      dropdownvalue2 = 'A';
+                      InsRiparto(link_admin + 'riparti_insert.php?id_utente='+widget.id_utente.toString()+'&sigla='+dropdownvalue2+'&voce_contabile='+dropdownvalue+'&raggruppamento='+raggruppamento+'&importo='+controller.text.toString(), context);
+
+                      setState(() {
+                        dropdownvalue = 'Amministrazione condominiale';
+                        dropdownvalue2 = 'A';
+                        controller.text = '';
+                      });
                     });
                   } else {
                     setState(() => tappedYes = false);
@@ -341,7 +346,7 @@ class _AddRiparto extends State<AddRiparto> {
 Future<void> InsRiparto(String link, BuildContext context) async {
   final response = await http.get(Uri.parse(link));
   if (response.statusCode == 200) {
-    print('Ins importo OK');
+    print('Ins riparto OK');
   } else {
     throw Exception('Failed to load data');
   }
