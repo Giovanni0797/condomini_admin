@@ -205,7 +205,7 @@ class _AdminSpese extends State<AdminSpese> {
                     child: SizedBox(
                       width: 115,
                       child: OutlinedButton(child: Text('Rimuovi spesa', style: TextStyle(color: verde, fontSize: 12)),
-                        onPressed: () {
+                        onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => RemSpesa(id_utente: id_utente, nome_utente: dropdownvalue, utenti: utenti)));
                         },
                         style: OutlinedButton.styleFrom(

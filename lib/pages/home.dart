@@ -1,6 +1,14 @@
 import 'package:condomini_admin/globals.dart';
+import 'package:flutter/material.dart';
+import 'dart:core';
+import 'package:condomini_admin/util/alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:condomini_admin/data_layer/Utente.dart';
+import 'package:flutter/services.dart';
+import 'package:condomini_admin/globals.dart';
 
 class AdminHome extends StatefulWidget {
   AdminHome({Key? key}) : super(key: key);
@@ -12,25 +20,42 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHome extends State<AdminHome> {
-  double tot_tab_a = 1521.0;
-  double tot_tab_b = 1521.0;
-  double tot_tab_c = 1521.0;
-  double tot_tab_d = 1521.0;
-  double tot_tab_e = 1521.0;
-  double tot_tab_f = 1521.0;
-  double tot_tab_h = 1521.0;
-  double spese_condivise = 1151.0;
-  double spese_personali = 1475.0;
+  List<double> somma = [];
+  double tot_tab_a = 0.0;
+  double tot_tab_b = 0.0;
+  double tot_tab_c = 0.0;
+  double tot_tab_d = 0.0;
+  double tot_tab_e = 0.0;
+  double tot_tab_f = 0.0;
+  double tot_tab_g = 0.0;
+  double tot_tab_h = 0.0;
+  double parti_uguali = 0.0;
+  double spese_personali = 0.0;
+  double tot_spese = 0.0;
 
   @override
   initState() {
     super.initState();
-    double tot_spese;
+
+    recSomma(link_admin + "tab_sum.php").then((value) => {
+      somma = value.toList(),
+
+      setState(() {
+        tot_tab_a = somma[0];
+        tot_tab_b = somma[1];
+        tot_tab_c = somma[2];
+        tot_tab_d = somma[3];
+        tot_tab_e = somma[4];
+        tot_tab_f = somma[5];
+        tot_tab_g = somma[6];
+        tot_tab_h = somma[7];
+        spese_personali = somma[8];
+        parti_uguali = somma[9];
+
+        tot_spese = tot_tab_a + tot_tab_b + tot_tab_c + tot_tab_d + tot_tab_e + tot_tab_f + tot_tab_g + tot_tab_h + spese_personali + parti_uguali;
+      }),
+    });
   }
-  //setState(() {
-  //double tot_spese = tot_tab_a + tot_tab_b + tot_tab_c + tot_tab_d +
-  //tot_tab_e + tot_tab_f + tot_tab_h + spese_condivise + spese_personali;
-  //});
 
   @override
   Widget build(BuildContext context) {
@@ -156,9 +181,9 @@ class _AdminHome extends State<AdminHome> {
                 Row(
                   //mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('• Spese condivise = ', style: TextStyle(
+                    Text('• Parti uguali = ', style: TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w600)),
-                    Text('$spese_condivise€', style: TextStyle(fontSize: 20)),
+                    Text('$parti_uguali€', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 //TOTALE SPESE PERSONALI
@@ -179,7 +204,7 @@ class _AdminHome extends State<AdminHome> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: verde)),
-                    Text('tot_spese€', style: TextStyle(
+                    Text('$tot_spese€', style: TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -197,5 +222,33 @@ class _AdminHome extends State<AdminHome> {
         ],
       ),
     );
+  }
+}
+
+/*Future<List<String>> recRiparto(String link) async {
+  final response = await http.get(Uri.parse(link));
+  if (response.statusCode == 200) {
+    //print(response.body);
+    if (response.body != '0') {
+      var Somma = jsonDecode(response.body) as List;
+      return Somma.toList();
+    } else {
+      return [];
+    }
+  } else {
+    throw Exception('Failed to load data');
+  }
+}*/
+
+Future<List<double>> recSomma(String link) async {
+  final response = await http.get(Uri.parse(link));
+  if (response.statusCode == 200) {
+
+    List<dynamic> somma = jsonDecode(response.body).map((e) => double.parse(e.toString())).toList();
+    //print(somma);
+    List<double> doubleList = somma.map((s) => s as double).toList();
+    return doubleList;
+  } else {
+    throw Exception('Failed to load data');
   }
 }
