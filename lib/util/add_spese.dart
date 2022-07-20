@@ -338,7 +338,6 @@ class _AddSpesa extends State<AddSpesa> {
       ),
     );
   }
-}
 
 Future<void> InsSpesa(String link, BuildContext context) async {
   final response = await http.get(Uri.parse(link));
@@ -366,3 +365,4 @@ Future<void> InsSpesa(String link, BuildContext context) async {
       throw Exception('Failed to load data');
     }
   }
+}

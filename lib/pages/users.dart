@@ -1,4 +1,5 @@
 import 'package:condomini_admin/util/alert_dialog.dart';
+import 'package:condomini_admin/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -17,7 +18,6 @@ class AdminUsers extends StatefulWidget {
 }
 
 class _AdminUsers extends State<AdminUsers> {
-
   List<Utente> utenti = [];
   List<int> idutente = [];
   List<String> nomeutente = [];
@@ -29,7 +29,6 @@ class _AdminUsers extends State<AdminUsers> {
   double millesimali = 0.0;
   int id = 0;
   int j = 0;
-
 
   TextEditingController controller = TextEditingController()..text='';
 
@@ -289,7 +288,7 @@ class _AdminUsers extends State<AdminUsers> {
       ),
     );
   }
-}
+
 
 Future<List<Utente>> recUtente(String link) async {
   final response = await http.get(Uri.parse(link));
@@ -325,4 +324,6 @@ Future<void> cancUtente(String link, BuildContext context) async {
   } else {
     throw Exception('Failed to load data');
   }
+}
+
 }

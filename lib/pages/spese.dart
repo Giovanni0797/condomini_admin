@@ -229,7 +229,6 @@ class _AdminSpese extends State<AdminSpese> {
       ),
     );
   }
-}
 
 Future<List<Utente>> recUtente(String link) async {
   final response = await http.get(Uri.parse(link));
@@ -247,4 +246,6 @@ Future<List<Utente>> recUtente(String link) async {
   } else {
     throw Exception('Failed to load data');
   }
+}
+
 }

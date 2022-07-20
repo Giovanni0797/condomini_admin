@@ -168,6 +168,15 @@ class _AdminHome extends State<AdminHome> {
                     Text('$tot_tab_f€', style: TextStyle(fontSize: 20)),
                   ],
                 ),
+                //TOTALE TAB G
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('• TAB "G" = ', style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600)),
+                    Text('$tot_tab_g€', style: TextStyle(fontSize: 20)),
+                  ],
+                ),
                 //TOTALE TAB D
                 Row(
                   //mainAxisAlignment: MainAxisAlignment.end,
@@ -204,7 +213,7 @@ class _AdminHome extends State<AdminHome> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: verde)),
-                    Text('$tot_spese€', style: TextStyle(
+                    Text(tot_spese.toStringAsFixed(2) + '€', style: TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold)),
                   ],
                 ),
