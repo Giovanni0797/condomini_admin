@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'package:condomini_admin/data_layer/Riparto.dart';
 import 'package:condomini_admin/data_layer/Spesa.dart';
 import 'package:condomini_admin/util/alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:condomini_admin/data_layer/Utente.dart';
-import 'package:flutter/services.dart';
 import 'package:condomini_admin/globals.dart';
 
 class RemSpesa extends StatefulWidget {
@@ -39,6 +37,7 @@ class _RemSpesaState extends State<RemSpesa> {
 
     recSpesa(link_admin + 'spese_read_all.php?id_utente=' + widget.id_utente.toString())
         .then((value) => {
+      print(link_admin + 'spese_read_all.php?id_utente=' + widget.id_utente.toString()),
           spese = value,
       for (int i = 0; i < spese.length; i++){
         voce_contabile.add(spese[i].voce_contabile!),
@@ -76,7 +75,6 @@ class _RemSpesaState extends State<RemSpesa> {
       },
 
       setState((){
-        dropdown;
         loading = true;
       }),
     });
