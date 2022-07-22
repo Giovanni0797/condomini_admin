@@ -44,7 +44,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:254960631450:android:66760d92a798874ab12923",
+        "mobilesdk_app_id": "1:254960631450:android:ee7ad3be5f636958b12923",
         "android_client_info": {
           "package_name": "com.example.condomini_admin"
         }
@@ -83,6 +83,42 @@
         "mobilesdk_app_id": "1:254960631450:android:091f1d917df261cab12923",
         "android_client_info": {
           "package_name": "com.mav.badanteinregola"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254960631450-k7ip091p655mi86q8051l7a52h3up2vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfqcpJBNI_15MlBvVTX7lkJfL444CBFkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254960631450-k7ip091p655mi86q8051l7a52h3up2vj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "254960631450-0q5ihv0s72o381rj996qpa9lt91sn2u2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mav.badanteinregola"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254960631450:android:b0f1b73b4a01c137b12923",
+        "android_client_info": {
+          "package_name": "com.mav.condominiuser"
         }
       },
       "oauth_client": [
@@ -199,6 +235,42 @@
         "mobilesdk_app_id": "1:254960631450:android:fe5aa17cf4dd95e1b12923",
         "android_client_info": {
           "package_name": "com.mav.giornali"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254960631450-k7ip091p655mi86q8051l7a52h3up2vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfqcpJBNI_15MlBvVTX7lkJfL444CBFkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254960631450-k7ip091p655mi86q8051l7a52h3up2vj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "254960631450-0q5ihv0s72o381rj996qpa9lt91sn2u2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mav.badanteinregola"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254960631450:android:71d4478d4841d439b12923",
+        "android_client_info": {
+          "package_name": "com.mav.notifiche"
         }
       },
       "oauth_client": [

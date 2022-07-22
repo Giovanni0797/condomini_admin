@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:condomini_admin/util/alert_dialog.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -76,46 +77,35 @@ class _AddRiparto extends State<AddRiparto> {
     super.initState();
 
     requestPermission();
-    loadFCM();
-    listenFCM();
-    getToken(link_admin + 'utenti_read_token.php?id=' + widget.id_utente.toString()).then((value) =>
+    getToken(
+        link_admin + 'utenti_read_token.php?id=' + widget.id_utente.toString())
+        .then((value) =>
     {
       setState(() {
         token = value;
         print(token);
       }),
     });
+
+    loadFCM();
+    listenFCM();
+    //getDeviceToken();
+    /**/
   }
 
   //NOTIFICHE FIREBASE
-  void sendPushMessage() async {
-    try {
-      await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'key=AAAAO1zWfpo:APA91bGJD8zt_OTCKRLTDxXSfDTbP9ACLGXYwG2tqOLK4YOggzN3msNTcG-NlhVzHNwmokOOmYVEf_dxE-GCnE8BTR4-T_LwzF3wcV5k69x9Wds0-0q94XIIQeHT_ONHrvM1mmW9Qg2Z'
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body': 'Nuova spesa',
-              'title': 'E\' stata aggiunta una nuova spesa da un amministratore!'
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
-            "to": "$token",
-          },
-        ),
-      );
-    } catch (e) {
-      print("error push notification");
-    }
-  }
+  /*void getDeviceToken() async {
+    await FirebaseMessaging.instance.getToken().then(
+            (token) {
+          http.get(Uri.parse(
+              'https://www.mavreality.it/condomini/utenti_update.php?id=' + widget.id_utente.toString() + '&token=' + token!));
+          setState(() {
+            token = token;
+            print(token);
+          });
+        }
+    );
+  }*/
 
   void requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -132,7 +122,8 @@ class _AddRiparto extends State<AddRiparto> {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('User granted permission');
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    } else
+    if (settings.authorizationStatus == AuthorizationStatus.provisional) {
       print('User granted provisional permission');
     } else {
       print('User declined or has not accepted permission');
@@ -190,7 +181,6 @@ class _AddRiparto extends State<AddRiparto> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -495,11 +485,11 @@ class _AddRiparto extends State<AddRiparto> {
                           '&raggruppamento=' + raggruppamento + '&importo=' +
                           controller.text.toString(), context);
 
-                      setState(() {
-                        dropdownvalue = 'Amministrazione condominiale';
-                        dropdownvalue2 = 'A';
-                        controller.text = '';
-                      });
+                      dropdownvalue = 'Amministrazione condominiale';
+                      dropdownvalue2 = 'A';
+                      controller.text = '';
+
+                      SendNotification(link + 'invianotifiche.php?id=' + widget.id_utente.toString(), context);
                     });
                   } else {
                     setState(() => tappedYes = false);
@@ -534,14 +524,23 @@ class _AddRiparto extends State<AddRiparto> {
     }
   }
 
+  Future<void> SendNotification(String link, BuildContext context) async {
+    final response = await http.get(Uri.parse(link));
+    if (response.statusCode == 200) {
+      print('Ins riparto OK');
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
   Future<String> getToken(String link) async {
     final response = await http.get(Uri.parse(link));
     if (response.statusCode == 200) {
-      //print(response.body);
+      //print('response.body: ' + response.body);
       if (response.body != '') {
-        var token = jsonDecode(response.body);
-        //print(token);
-        return token;
+        var userToken = response.body;
+        //print('token: ' + token);
+        return userToken;
       } else {
         return "";
       }
