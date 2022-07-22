@@ -2,6 +2,7 @@ import 'package:condomini_admin/globals.dart';
 import 'package:condomini_admin/main.dart';
 import 'package:condomini_admin/pages/home.dart';
 import 'package:condomini_admin/pages/spese.dart';
+import 'package:condomini_admin/pages/test.dart';
 import 'package:condomini_admin/pages/users.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [
     AdminHome(),
     AdminSpese(),
-    AdminUsers(),
+    ProfileScreen(),
   ];
 
   var _pageController = PageController();
