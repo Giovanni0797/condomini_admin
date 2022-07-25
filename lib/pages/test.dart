@@ -69,12 +69,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Text('Gestione condominiale',
                 style: TextStyle(fontWeight: FontWeight.w700, color: bianco)),
-            Text('Gestisci utenti',
-                style: TextStyle(fontSize: 15, color: verde)),
+            Icon(Icons.supervised_user_circle, size: 30),
           ],
         ),
-        backgroundColor: bar,
-        elevation: 0,
+        backgroundColor: def2,
+        elevation: 20,
       ),
       backgroundColor: def2,
       body: SizedBox(
